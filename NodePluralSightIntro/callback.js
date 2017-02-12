@@ -11,12 +11,12 @@ setTimeout(function(){
     maxTime = Math.floor(Math.random() * (maxTime  + 1));
     if(v%2===0){
    var results=v*2; 
-   var err = undefined;
+   var err;
    console.time
   callback(err, results, maxTime);
   }
   else{
-     var err = {message: "odd input"};
+     err = {message: "odd input"};
      callback(err);
   }
     
