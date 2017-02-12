@@ -6,23 +6,24 @@ var maxTime = 1000;
 
 
 var evenDoubler = function(v, callback){
-    
-setTimeout(function(){
-    maxTime = Math.floor(Math.random() * (maxTime  + 1));
-    if(v%2===0){
-   var results=v*2; 
-   var err;
-   console.time
-  callback(err, results, maxTime);
-  }
-  else{
-     err = {message: "odd input"};
-     callback(err);
-  }
-    
-}, maxTime);    
-};
+    var time =  Math.floor(Math.random() * (maxTime  + 1));
 
+    
+    if(v%2===0){
+   setTimeout(function() { 
+   
+  callback(new Error("Odd input"));
+  }, time);
+    }
+  else{
+      setTimeout(function(){
+     
+     callback(null, v*2, time);
+  }, time);
+  }
+
+};
+/*
 var handleResults = function(err, results, time) {
     if (err){
         console.log("ERROR: " + err.message);
@@ -31,7 +32,22 @@ var handleResults = function(err, results, time) {
         console.log("The results are: " + results + " (" + time + " ms)");
     }
 };
+*/
+var count = 0;
 
-evenDoubler(2, handleResults);
-
+for (var i = 0; i<10; i++){
+    console.log("Calling evenDoubler for value: " + i);
+    evenDoubler(i, function(err, results, time) {
+             if (err){
+        console.log("ERROR: " + err.message);
+    }  
+    else {
+        console.log("The results are: " + results + " (" + time + " ms)");
+    }
+    if (++count === 10){
+        console.log("Done");
+    }
+    });
+    
+}
 console.log("------");
